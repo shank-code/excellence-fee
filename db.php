@@ -10,13 +10,13 @@ header('Access-Control-Allow-Headers: accept, origin, content-type');
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
-    $con = mysqli_connect("localhost", "root", "java@123", "giftcard");
+    $con = mysqli_connect("localhost", "root", "java@123", "excellence_fee");
 
 
 if (isset($_POST['action']) && isset($_POST['store'])) {
     $store_name = $_POST['store'];
 
-    $query = "SELECT * FROM giftcard where store_name = '$store_name'";
+    $query = "SELECT * FROM excellence_fee where store_name = '$store_name'";
     $result = mysqli_query($con, $query);
     $r = array();
     if (mysqli_num_rows($result) > 0) {
@@ -37,14 +37,16 @@ if (isset($_POST['action']) && isset($_POST['store'])) {
         $gift_varient = $_POST['gift'];
 
 
-        $check = "SELECT * FROM giftcard WHERE product_varient = '$product_varient'";
+        $check = "SELECT * FROM fee where store_name = '$store' ";
         $rs = mysqli_query($con, $check);
         $data = mysqli_fetch_array($rs, MYSQLI_NUM);
         if ($data[0] > 1) {
+        $query = "UPDATE INTO `fee`(`amount`) VALUES ('$product_varient') where store_name = '$store' ";
+        $result = mysqli_query($con, $query);
         $_SESSION['SUCCESS'] = "1";
         header("location: dashboard.php?shop=" . $store);
         } else {
-        $query = "INSERT INTO `giftcard`(`product_varient`, `gift_varient`,`store_name`) VALUES ('$product_varient','$gift_varient','$store')";
+        $query = "INSERT INTO `fee`(`product_varient`,`store_name`) VALUES ('$product_varient','$store')";
         $result = mysqli_query($con, $query);
         $_SESSION['SUCCESS'] = "2";   
         header("location: dashboard.php?shop=".$store);
@@ -57,7 +59,7 @@ if (isset($_POST['action']) && isset($_POST['store'])) {
     }
 
     $store1 = $_POST['store'];
-    $query = "SELECT * FROM giftcard where store_name = '$store1'";
+    $query = "SELECT * FROM fee where store_name = '$store1'";
    
         $result = mysqli_query($con, $query);
     $r = array();
@@ -68,12 +70,10 @@ if (isset($_POST['action']) && isset($_POST['store'])) {
         print_r(json_encode($r));
     }
 
-    if(isset($_REQUEST['type']) && $_REQUEST['type'] == 'del' ){
-    $store2 = $_POST['store'];
-        $query = "DELETE FROM giftcard WHERE id=".$_POST['val']." and store_name = '$store2'";
-        $result = mysqli_query($con, $query);
-        
-        
-    }
+    // if(isset($_REQUEST['type']) && $_REQUEST['type'] == 'del' ){
+    // $store2 = $_POST['store'];
+    //     $query = "DELETE FROM giftcard WHERE id=".$_POST['val']." and store_name = '$store2'";
+    //     $result = mysqli_query($con, $query);   
+    // }
 
 ?>
