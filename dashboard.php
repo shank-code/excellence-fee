@@ -24,17 +24,6 @@ $api = new API();
 $GetscriptURL = "https://" . $_SESSION['store'] . "/admin/api/2019-10/script_tags.json";
 $Getscript = $api->Getscript($GetscriptURL, $auth);
 
-//Get all products Api
-$GetallProductURL = "https://" . $_SESSION['store'] . "/admin/api/2019-04/products.json";
-$varientIds = $api->GetallProducts($GetallProductURL,$auth);
-
-//Get collection Api
-$GetcollectionURL = "https://" . $_SESSION['store'] . "/admin/api/2019-04/smart_collections.json";
-$collection_id = $api->Getcollection($GetcollectionURL,$auth);
-
-//Get collection id
-$GetcollectionbyIDURL = "https://" . $_SESSION['store'] . "/admin/api/2019-04/products.json?collection_id=" . $collection_id;
-$gift_varientIds=  $api->GetcollectionbyID($GetcollectionbyIDURL,$auth);
 
 
 
@@ -46,7 +35,7 @@ $gift_varientIds=  $api->GetcollectionbyID($GetcollectionbyIDURL,$auth);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>GIFTCARD</title>
+    <title>Excellence Fee</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -71,20 +60,20 @@ $gift_varientIds=  $api->GetcollectionbyID($GetcollectionbyIDURL,$auth);
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Giftcard</h3>
-                <strong>GC</strong>
+                <h3>Excellence Fee</h3>
+                <strong>EF</strong>
             </div>
             <ul class="list-unstyled components">
                 <li>
                     <a href="#" class="upload">
                         <i></i>
-                        Upload Gift
+                        Upload Fee Amount
                     </a>
                 </li>
                 <li>
                     <a href="#" class='show'>
                         <i></i>
-                        Show Giftcard
+                        Show Fee
                     </a>
                 </li>
             </ul>
@@ -113,30 +102,10 @@ $gift_varientIds=  $api->GetcollectionbyID($GetcollectionbyIDURL,$auth);
                 <form action="db.php?shop=<?= $shop ?>" method="post" enctype="multipart/form-data"> 
                 <div class="form-content">
                     <div class="row">
-                            <div class="form-group col-sm-6  col-xs-12 ">
-                                <label>Products SKU</label>
-                                <select  name='product' class='chosen' require>         
-                                    <?php  
-                                        foreach ($varientIds as $key => $value) {    
-                                            echo "<option value ='".$key.'_'.$value."'>".$value."</option>";    
-                                        }
-                                    ?>   
-                                </select>  
-                            </div>              
-                            <div class="form-group col-sm-6 col-xs-12">
-                                 <label>GiftProduct SKU</label>
-                                 <select class="chosen1" name='gift' require>      
-                                         <?php 
-                                        foreach ($gift_varientIds as $key => $value) {
-                                            echo "<option value ='" . $key .'_'.$value. "'>" . $value . "</option>";
-                                        }
-                                        ?>
-                                </select>
+                             <div class="form-group">
+                                 <label>Excellence Fee</label>
+                                <input type="input" name="fee" class="form-control" />
                             </div>
-                             <!-- <div class="form-group">
-                                 <label>status</label>
-                                <input type="checkbox" name="check" class="form-control" />
-                            </div> -->
                     </div>
                     <div class='row'> 
                         <button type="submit"  name= "submit" class="btnSubmit">Submit</button>
@@ -151,9 +120,8 @@ $gift_varientIds=  $api->GetcollectionbyID($GetcollectionbyIDURL,$auth);
                 <table class="table table-striped table-bordered text-center">
                     <thead>
                         
-                        <th>All product SKU</th>
-                        <th>GiftCard SKU</th>
-                        <th>Action</th>
+                        <th>Excellence Fee</th>
+                        
                     </thead>
                     <tbody id="response"></tbody>       
                 </table>
@@ -186,8 +154,7 @@ $gift_varientIds=  $api->GetcollectionbyID($GetcollectionbyIDURL,$auth);
             $('.show1').show();
             $('.successfully').css('display', 'none');
             var text ="";
-            
-            
+
             $.ajax({
                 url : "db.php",
                 type: "post",
@@ -201,9 +168,7 @@ $gift_varientIds=  $api->GetcollectionbyID($GetcollectionbyIDURL,$auth);
                     if(data) {
                         $.each(data, function (i,data1) {  
                             text +=  "<tr style='background-color: rgba(255, 255, 255, 0.05)'>"+
-                                    "<td>"+data1.product_varient.split('_')[1]+"</td>"+        
-                                    "<td>"+data1.gift_varient.split('_')[1]+"</td>"+
-                                    "<td><button class='btn btn-danger delete' data-atr="+data1.id+">Delete</button></td>"+
+                                    "<td>"+data1.amount+"</td>"+        
                                     "</tr>";
                         });
                     }
