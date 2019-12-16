@@ -1,6 +1,5 @@
 <?php
 header('Access-Control-Allow-Origin: *');
-
 header("Access-Control-Request-Method: GET, POST");
 header('Access-Control-Allow-Headers: accept, origin, content-type');
 
@@ -28,15 +27,8 @@ if (isset($_POST['action']) && isset($_POST['store'])) {
     exit;
 }
 
-
-
-
     if (isset($_POST["submit"])) {
-
     $fee = $_POST['fee'];
-
-
-
         $check = "SELECT * FROM fee where store_name = '$store' ";
         $rs = mysqli_query($con, $check);
         $data = mysqli_fetch_array($rs, MYSQLI_NUM);
@@ -53,15 +45,11 @@ if (isset($_POST['action']) && isset($_POST['store'])) {
         $_SESSION['SUCCESS'] = "2";   
         header("location: dashboard.php?shop=".$store);
         }
-  
-            
-            // echo "<script type='text/javascript'>alert('SUCCESSFULLY');</script>";
-            
-      
+   
     }
 
-    $store1 = $_POST['store'];
-    $query = "SELECT * FROM fee where store_name = '$store1'";
+    $store_names = $_POST['store'];
+    $query = "SELECT * FROM fee where store_name = '$store_names'";
    
         $result = mysqli_query($con, $query);
     $r = array();
@@ -72,10 +60,6 @@ if (isset($_POST['action']) && isset($_POST['store'])) {
         print_r(json_encode($r));
     }
 
-    // if(isset($_REQUEST['type']) && $_REQUEST['type'] == 'del' ){
-    // $store2 = $_POST['store'];
-    //     $query = "DELETE FROM giftcard WHERE id=".$_POST['val']." and store_name = '$store2'";
-    //     $result = mysqli_query($con, $query);   
-    // }
+ 
 
 ?>
