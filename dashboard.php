@@ -20,9 +20,9 @@ $username = "3cf019a0d480cd6c9962105d13f0774b";
 $password = "1a3c5f17f4d5787a8df38167b1c3f94e";
 
 //add js file in shopify store
-$api = new API();
-$GetscriptURL = "https://" . $_SESSION['store'] . "/admin/api/2019-10/script_tags.json";
-$Getscript = $api->Getscript($GetscriptURL, $auth);
+// $api = new API();
+// $GetscriptURL = "https://" . $_SESSION['store'] . "/admin/api/2019-10/script_tags.json";
+// $Getscript = $api->Getscript($GetscriptURL, $auth);
 
 
 
@@ -93,7 +93,7 @@ $Getscript = $api->Getscript($GetscriptURL, $auth);
                 </div>
             </nav>
             <?php if ($_SESSION['SUCCESS'] == "1") 
-           echo "<div class='successfully'><h2 style='color:GREEN'>product Already have giftcard</h2></div>";
+           echo "<div class='successfully'><h2 style='color:GREEN'>Fee Updated Succesfully</h2></div>";
             ?>
             <?php if ($_SESSION['SUCCESS'] == "2")
                 echo "<div class='successfully'><h2 style='color:red'>Successfully </h2></div>";
@@ -184,18 +184,18 @@ $Getscript = $api->Getscript($GetscriptURL, $auth);
             $('.upload1').show();
         });
 
-           $(document).on('click', '.delete', function () {
-            $.ajax({
-                type:'POST',
-                data:{val:$(this).attr('data-atr'),type:'del',store:store},
-                url:'db.php',
-                success: function(data){
-                   $('.show').click(); 
-                }
+        //    $(document).on('click', '.delete', function () {
+        //     $.ajax({
+        //         type:'POST',
+        //         data:{val:$(this).attr('data-atr'),type:'del',store:store},
+        //         url:'db.php',
+        //         success: function(data){
+        //            $('.show').click(); 
+        //         }
 
-            });
+        //     });
 
-        });
+        // });
     });
     $(document).ready(function(){
         $('.chosen').chosen();

@@ -33,20 +33,22 @@ if (isset($_POST['action']) && isset($_POST['store'])) {
 
     if (isset($_POST["submit"])) {
 
-        $product_varient = $_POST['product'];
-        $gift_varient = $_POST['gift'];
+    $fee = $_POST['fee'];
+
 
 
         $check = "SELECT * FROM fee where store_name = '$store' ";
         $rs = mysqli_query($con, $check);
         $data = mysqli_fetch_array($rs, MYSQLI_NUM);
-        if ($data[0] > 1) {
-        $query = "UPDATE INTO `fee`(`amount`) VALUES ('$product_varient') where store_name = '$store' ";
+        
+        if ($data[0] > 0) {
+        $query ="UPDATE `fee` SET `amount`='$fee' WHERE store_name = '$store'";
+
         $result = mysqli_query($con, $query);
         $_SESSION['SUCCESS'] = "1";
         header("location: dashboard.php?shop=" . $store);
         } else {
-        $query = "INSERT INTO `fee`(`product_varient`,`store_name`) VALUES ('$product_varient','$store')";
+        $query = "INSERT INTO `fee`(`amount`,`store_name`) VALUES ('$fee','$store')";
         $result = mysqli_query($con, $query);
         $_SESSION['SUCCESS'] = "2";   
         header("location: dashboard.php?shop=".$store);
